@@ -1,0 +1,84 @@
+{
+      "name": "IchigoRobot",
+      "description": "A Powerful Telegram group management bot with anime theme.",
+      "keywords": [
+         "telegram",
+         "advance",
+         "group",
+         "manager",
+         "naorobot"
+      ],
+    
+   "logo":    "https://telegra.ph/file/68afcb36000d364ae0f50.jpg",  
+   "repository": "https://github.com/VOIDISSTOXIC/IchigoRobot",
+   "addons": [
+          {
+         "options": {
+            "version": "12"
+         },
+         "plan": "heroku-postgresql"
+      }
+   ],
+   "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    }
+  ],  
+   "env": {
+      "TOKEN": {
+         "description": "Your bot token. Get one from @BotFather duh",
+         "required": true,
+         "value": ""
+      },
+      "API_ID": {
+         "description": "Get API_ID from my.telegram.org, used for telethon based modules.",
+         "required": true,
+         "value": ""
+      },
+      "API_HASH": {
+         "description": "Get API_HASH from my.telegram.org, used for telethon based modules.",
+         "required": true,
+         "value": ""
+      },    
+      "SQLALCHEMY_DATABASE_URI": {
+         "description": "Your postgres sql db, empty this field if you dont have one.",
+         "required": false,
+         "value": "sqldbtype://username:pw@hostname:port/db_name"
+      },      
+      "OWNER_ID": {
+         "description": "Your user ID as an integer.",
+         "required": true,
+         "value": ""
+     },
+      "BOT_USERNAME": {
+         "description": "username of your bot without the @",
+         "value": ""
+      },
+
+      "BOT_ID": {
+         "description": "to get your bot_id using other bot or userbot",
+         "value": ""
+      },
+      "OWNER_USERNAME": {
+         "description": "Your username without the @",
+         "value": "saint_foire"
+      },
+      "ENV": {
+         "description": "Setting this to ANYTHING will enable environment variables. Leave it as it is",
+         "value": "ANYTHING"
+      },
+      "NO_LOAD": {
+         "description": "Dont load these modules cause they shit, space separation",
+         "required": false,
+         "value": "rss"
+      }, 
+      "ALLOW_EXCL": {
+         "description": "Set this to True if you want ! to be a command prefix along with /. Recommended is True",
+         "value": "True"
+      }
+      
+   }
+}
