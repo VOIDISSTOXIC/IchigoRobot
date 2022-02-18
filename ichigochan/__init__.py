@@ -50,6 +50,10 @@ if ENV:
         BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
         API_ID = os.environ.get("API_ID", None)
         API_HASH = os.environ.get("API_HASH", None)
+        DB_URL = os.environ.get("DATABASE_URL")
+        BOT_ID = int(os.environ.get("BOT_ID", None))
+        BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
+        DB_URL = DB_URL.replace("postgres://", "postgresql://", 1)
         NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
         LOAD = os.environ.get("LOAD", "").split()
         ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
@@ -63,6 +67,73 @@ try:
    OWNER_ID = Int(Config.OWNER_ID)
 except Value error:
      raise Exception("Your OWNER_ID variable is not a valid integer.")
+   OWNER_USERNAME = Config.OWNER_USERNAME
+   API_ID = Config.API_ID
+   API_HASH = Config.API_HASH
+   DB_URL = Config.SQLALCHEMY_DATABASE_URI
+   BOT_USERNAME = Config.BOT_USERNAME
+
+from Tanji.modules.sql import SESSION
+
+defaults = tg.Defaults(run_async=True)
+updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
+telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
+dispatcher = updater.dispatcher
+print("[INFO]: INITIALIZING AIOHTTP SESSION")
+aiohttpsession = ClientSession()
+
+pbot = Client(
+    ":memory:",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=TOKEN,
+    workers=min(32, os.cpu_count() + 4),
+)
+apps = []
+apps.append(pbot)
+loop = asyncio.get_event_loop()
+
+async def get_entity(client, entity):
+    entity_client = client
+    if not isinstance(entity, Chat):
+        try:
+            entity = int(entity)
+        except ValueError:
+            pass
+        except TypeError:
+            entity = entity.id
+        try:
+            entity = await client.get_chat(entity)
+        except (PeerIdInvalid, ChannelInvalid):
+            for kp in apps:
+                if kp != client:
+                    try:
+                        entity = await kp.get_chat(entity)
+                    except (PeerIdInvalid, ChannelInvalid):
+                        pass
+                    else:
+                        entity_client = kp
+                        break
+            else:
+                entity = await kp.get_chat(entity)
+                entity_client = kp
+    return entity, entity_client
+
+async def eor(msg: Message, **kwargs):
+    func = msg.edit_text if msg.from_user.is_self else msg.reply
+    spec = getfullargspec(func.__wrapped__).args
+    return await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
+# Load at end to ensure all prev variables have been set
+from Tanji.modules.helper_funcs.handlers import (
+    CustomCommandHandler,
+    CustomMessageHandler,
+    CustomRegexHandler,
+)
+
+# make sure the regex handler can take extra kwargs
+tg.RegexHandler = CustomRegexHandler
+tg.CommandHandler = CustomCommandHandler
+tg.MessageHandler = CustomMessageHandler
  
