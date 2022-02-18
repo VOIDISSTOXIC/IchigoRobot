@@ -72,6 +72,9 @@ except Value error:
    API_HASH = Config.API_HASH
    DB_URL = Config.SQLALCHEMY_DATABASE_URI
    BOT_USERNAME = Config.BOT_USERNAME
+   BOT_ID = Config.BOT_ID
+   LOAD = Config.LOAD
+   NO_LOAD = Config.NO_LOAD
 
 from Tanji.modules.sql import SESSION
 
