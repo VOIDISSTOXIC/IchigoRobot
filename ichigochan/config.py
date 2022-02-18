@@ -19,6 +19,8 @@ class Config(object):
     TOKEN = "BOT_TOKEN"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 5069705982  # If you dont know, run the bot and do /id in your private chat with it, also an integer
     OWNER_USERNAME = "Lynncept_iz_here"
+    BOT_USERNAME = "None"
+    BOT_ID = "-xyz"
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = "something://somewhat:user@hosturl:port/databasename"  # needed for any database modules
     LOAD = []
