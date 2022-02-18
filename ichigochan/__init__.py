@@ -29,4 +29,31 @@ logging.basicConfig(
     datefmt="[%X]",
 )
 
+logging.getLogger('ptbcontrib.postgres_persistence.postgrespersistence').setLevel(logging.WARNING)
+
+logs = logging.getLogger('[Ichigochan]')
 logs.info("I'm ichigo! I'm starting do waitoo waitoo (~‾▿‾)~ UwU.")
+
+if sys.version_info[0] < 3 or sys.version_info[1] < 9:
+    LOGGER.error(
+        "You MUST have a python version of at least 3.9! Multiple features depend on this. Bot quitting."
+    )
+    sys.exit(1)
+    
+ENV = bool(os.environ.get("ENV", False))
+if ENV:
+    TOKEN = os.environ.get("TOKEN", None)
+    try:
+        OWNER_ID = int(os.environ.get("OWNER_ID", None))
+    except ValueError:
+        raise Exception("Your OWNER_ID env variable is not a valid integer.")
+        BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
+        API_ID = os.environ.get("API_ID", None)
+        API_HASH = os.environ.get("API_HASH", None)
+        NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
+        
+        else:
+
+from Ichigochan.config import Development as Config
+
+ 
