@@ -51,9 +51,18 @@ if ENV:
         API_ID = os.environ.get("API_ID", None)
         API_HASH = os.environ.get("API_HASH", None)
         NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
-        
-        else:
+        LOAD = os.environ.get("LOAD", "").split()
+        ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
 
-from Ichigochan.config import Development as Config
+    else:
+        from Ichigochan.config import Development as Config
+    
+        TOKEN = Config.TOKEN
+      
+try: 
+   OWNER_ID = Int(Config.OWNER_ID)
+except Value error:
+     raise Exception("Your OWNER_ID variable is not a valid integer.")
+
 
  
