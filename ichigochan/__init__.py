@@ -67,6 +67,7 @@ try:
    OWNER_ID = Int(Config.OWNER_ID)
 except ValueError:
      raise Exception("Your OWNER_ID variable is not a valid integer.")
+ 
    OWNER_USERNAME = Config.OWNER_USERNAME
    API_ID = Config.API_ID
    API_HASH = Config.API_HASH
@@ -76,7 +77,7 @@ except ValueError:
    LOAD = Config.LOAD
    NO_LOAD = Config.NO_LOAD
 
-from Tanji.modules.sql import SESSION
+from ichigochan.modules.sql import SESSION
 
 defaults = tg.Defaults(run_async=True)
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
