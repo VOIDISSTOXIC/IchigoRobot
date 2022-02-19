@@ -47,6 +47,7 @@ if ENV:
         OWNER_ID = int(os.environ.get("OWNER_ID", None))
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
+        OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
         BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
         API_ID = os.environ.get("API_ID", None)
         API_HASH = os.environ.get("API_HASH", None)
