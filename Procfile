@@ -1,1 +1,1 @@
-worker: python3 -m Ichigochan
+worker: python3 -m Ichigo
