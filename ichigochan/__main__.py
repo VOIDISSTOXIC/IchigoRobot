@@ -8,35 +8,31 @@ import sys
 import traceback
 
 from sqlalchemy.sql.expression import text, update
-import SiestaRobot.modules.sql.users_sql as sql
+import Ichigochan.modules.sql.users_sql as sql
 from sys import argv
 from typing import Optional
 from telegram import __version__ as peler
 from platform import python_version as memek
-from SiestaRobot import (
+from Ichigo import (
     ALLOW_EXCL,
-    CERT_PATH,
+    CERP_PATH,
     DONATION_LINK,
-    LOGGER,
     OWNER_ID,
-    PORT,
-    SUPPORT_CHAT,
     TOKEN,
-    URL,
-    WEBHOOK,
     SUPPORT_CHAT,
+    logs,
     dispatcher,
+    pbot,
     StartTime,
     telethn,
-    pbot,
     updater,
 )
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
-from SiestaRobot.modules import ALL_MODULES
-from SiestaRobot.modules.helper_funcs.chat_status import is_user_admin
-from SiestaRobot.modules.helper_funcs.misc import paginate_modules
+from Ichigochan.modules import ALL_MODULES
+from Ichigochan.modules.helper_funcs.chat_status import is_user_admin
+from Ichigochan.modules.helper_funcs.misc import paginate_modules
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import (
     BadRequest,
@@ -55,7 +51,6 @@ from telegram.ext import (
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
-from SiestaRobot.modules.language import gs
 
 
 def get_readable_time(seconds: int) -> str:
@@ -83,12 +78,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-SIESTA_IMG = "https://telegra.ph/file/6d3e3ef24f64fb6e35df0.jpg"
-
-DONATE_STRING = """Heya, glad to hear you want to donate!
- You can support the project by contacting @saint_foire \
- Supporting isnt always financial! \
- Those who cannot provide monetary support are welcome to help us develop the bot at ."""
+ICHIGO_IMG = "https://telegra.ph/file/6d3e3ef24f64fb6e35df0.jpg"
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -101,7 +91,7 @@ CHAT_SETTINGS = {}
 USER_SETTINGS = {}
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("SiestaRobot.modules." + module_name)
+    imported_module = importlib.import_module("Ichigochan.modules." + module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 
@@ -180,7 +170,7 @@ def start(update: Update, context: CallbackContext):
                     InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="help_back"),
+                                InlineKeyboardButton (text="back_button", callback_data="help_back"),
                             ]
                         ]
                     ),
@@ -209,15 +199,11 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(text=gs(chat.id, "about_button"), callback_data="siesta_"),
-                        ],
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "help_button"), callback_data="help_back"),
-                            InlineKeyboardButton(text=gs(chat.id, "inline_button"), switch_inline_query_current_chat=""),
+                            InlineKeyboardButton(text="help_button", callback_data="help_back"),
                         ],
                         [
                             InlineKeyboardButton(
-                                text=gs(chat.id, "add_bot_to_group_button"), url="t.me/Siestaxbot?startgroup=new"),
+                                text="add_bot_to_group_button", url="t.me/IchigoXRobot?startgroup=new"),
                         ]
                     ]
                 ),
@@ -865,17 +851,13 @@ def main():
 
     dispatcher.add_error_handler(error_callback)
 
-    if WEBHOOK:
-        LOGGER.info("Using webhooks.")
-        updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
-
         if CERT_PATH:
             updater.bot.set_webhook(url=URL + TOKEN, certificate=open(CERT_PATH, "rb"))
         else:
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        LOGGER.info("Using long polling.")
+        logs.info("Using long polling.")
         updater.start_polling(timeout=15, read_latency=4, drop_pending_updates=True)
 
     if len(argv) not in (1, 3, 4):
@@ -887,7 +869,7 @@ def main():
 
 
 if __name__ == "__main__":
-    LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    logs.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
     pbot.start()
     main()
