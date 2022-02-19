@@ -65,7 +65,7 @@ if ENV:
       
 try: 
    OWNER_ID = Int(Config.OWNER_ID)
-except Value error:
+except ValueError:
      raise Exception("Your OWNER_ID variable is not a valid integer.")
    OWNER_USERNAME = Config.OWNER_USERNAME
    API_ID = Config.API_ID
