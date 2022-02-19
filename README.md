@@ -33,5 +33,5 @@ Hᴇʏ ᴅᴇᴠᴇʟᴏᴘᴇʀs ᴛʜɪs ɪs Iᴄʜɪɢᴏ ʀᴏʙᴏᴛ , ᴛ
  × make sure you give a star while kanging our repository
  
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://github.com/VOIDISSTOXIC/IchigoRobot) 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/VOIDISSTOXIC/IchigoRobot.git) 
 
