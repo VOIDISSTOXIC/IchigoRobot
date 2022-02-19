@@ -32,3 +32,6 @@ Hᴇʏ ᴅᴇᴠᴇʟᴏᴘᴇʀs ᴛʜɪs ɪs Iᴄʜɪɢᴏ ʀᴏʙᴏᴛ , ᴛ
  × hey guys use the button below to deploy ichigo Robot to heroku
  × make sure you give a star while kanging our repository
  
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://github.com/VOIDISSTOXIC/IchigoRobot) 
+
