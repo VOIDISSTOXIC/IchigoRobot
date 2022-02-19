@@ -78,7 +78,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-ICHIGO_IMG = "https://telegra.ph/file/6d3e3ef24f64fb6e35df0.jpg"
+ICHIGO_IMG = "https://telegra.ph/file/d7b9bb74791e798df301c.jpg"
 
 IMPORTED = {}
 MIGRATEABLE = []
