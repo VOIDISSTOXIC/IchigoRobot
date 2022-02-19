@@ -69,6 +69,7 @@ except ValueError:
      raise Exception("Your OWNER_ID variable is not a valid integer.")
  
    OWNER_USERNAME = Config.OWNER_USERNAME
+    
    API_ID = Config.API_ID
    API_HASH = Config.API_HASH
    DB_URL = Config.SQLALCHEMY_DATABASE_URI
